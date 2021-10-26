@@ -1,0 +1,7 @@
+phase 1 build out virtual robot life simulation
+1.0 figure out how to do gui display
+1.1 build dummy world
+1.2 build robot objects
+1.3 build env objects
+1.4 build robot controller
+1.5 ...
