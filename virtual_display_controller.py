@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn import preprocessing
+import shared_vars as v
 
 def normalize(values):
     average = np.mean(values)
@@ -7,10 +9,14 @@ def normalize(values):
     return (values-average)/stdv
 
 def rescale(values):
-    min = np.min(values)
-    max = np.max(values)
-    return (values-min)/(max-min)
+    y = np.reshape(values, [-1, 1])
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x = min_max_scaler.fit_transform(y)
+    out = np.reshape(x, [-1, 1])
+    return out
 
+def scalemax10(values):
+    return values/10
 
 def showTableState(grid):
     xlen = len(grid[0])
@@ -24,7 +30,9 @@ def showTableState(grid):
     z = np.reshape(grid, [1, xlen*ylen])
     bottom = np.zeros_like(z)
     width = length = np.ones_like(z)
-    colorvals = rescale(z[0])
+#    colorvals = rescale(z[0])
+    colorvals = scalemax10(z[0])
+#    colorvals = z[0]
     colors = plt.cm.terrain(colorvals)
 
     #print (bottom)
@@ -37,6 +45,8 @@ def showTableState(grid):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.bar3d(x, y, bottom[0], width[0], length[0], z[0], shade=True, color=colors)
-
+    ax.set_xlim3d(0, v.max_x)
+    ax.set_ylim3d(0, v.max_y)
+    ax.set_zlim3d(0, v.max_z)
     plt.show()
     plt.clf()
