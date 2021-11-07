@@ -19,6 +19,7 @@ def scalemax10(values):
     return values/10
 
 def showTableState(grid):
+    plt.clf()
     xlen = len(grid[0])
     ylen = len(grid)
 
@@ -48,5 +49,4 @@ def showTableState(grid):
     ax.set_xlim3d(0, v.max_x)
     ax.set_ylim3d(0, v.max_y)
     ax.set_zlim3d(0, v.max_z)
-    plt.show()
-    plt.clf()
+    return fig, ax

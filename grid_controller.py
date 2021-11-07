@@ -29,4 +29,10 @@ def create_flat_grid(x=v.max_x, y=v.max_y):
     return np.array(grid)
 
 def create_river(grid, r_x, r_y):
-    return
+    grid[r_x][r_y] = grid[r_x][r_y] - 2
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            if (len(grid[0]) > r_x - i > -1) and (len(grid) > r_y - j > -1):
+                print (r_x - i, ', ', r_y - j)
+                grid[r_x - i][r_y - j] = grid[r_x - i][r_y - j] - 1
+    return grid
