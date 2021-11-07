@@ -38,6 +38,30 @@ def dig(grid, r_x, r_y):
         grid[r_x][r_y] = grid[r_x][r_y] - 1
     return grid
 
+def build(grid, r_x, r_y):
+    if check_depth(grid, r_x, r_y):
+        grid[r_x][r_y] = grid[r_x][r_y] + 1
+    return grid
+
+def big_build(grid, r_x, r_y):
+    if check_depth(grid, r_x, r_y):
+        grid[r_x][r_y] = grid[r_x][r_y] + 3
+    return grid
+
+def build_house(grid, r_x, r_y):
+    for i in range(-2, 2):
+        for j in range(-2, 2):
+            test_x = r_x - i
+            test_y = r_y - j
+            if -2 < i < 1 and -2 < j < 1:
+                continue
+            if i == 1 and j ==0:
+                continue
+            if (len(grid[0]) > test_x > -1) and (len(grid) > test_y > -1) and check_depth(grid, test_x, test_y):
+                #print (r_x - i, ', ', r_y - j)
+                grid[r_x - i][r_y - j] = grid[r_x - i][r_y - j] + 3
+    return grid
+
 def create_river(grid, r_x, r_y):
     if check_depth(grid, r_x, r_y):
         grid[r_x][r_y] = grid[r_x][r_y] - 1
