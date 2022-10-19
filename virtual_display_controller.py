@@ -18,8 +18,7 @@ def rescale(values):
 def scalemax10(values):
     return values/10
 
-def showTableState(grid):
-    plt.clf()
+def showTableState(grid, fig):
     xlen = len(grid[0])
     ylen = len(grid)
 
@@ -42,8 +41,7 @@ def showTableState(grid):
     #print (y)
     #print (z)
     #print (colorvals)
-
-    fig = plt.figure()
+    #fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.bar3d(x, y, bottom[0], width[0], length[0], z[0], shade=True, color=colors)
     ax.set_xlim3d(0, v.max_x)

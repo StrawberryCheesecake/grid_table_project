@@ -3,6 +3,7 @@ import PySimpleGUI as Sg
 import shared_vars as v
 import virtual_display_controller as outD
 import grid_controller as gc
+import matplotlib.pyplot as plt
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -26,9 +27,15 @@ def runUI():
     figAgg = False
     selected = [0, 0]
 
+    #create figure for plotting
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
     mode = 'select'
     while True:
         event, values = window.read(timeout=10000)
+        fig.clf()
+        ax.cla()
 
         if event == 'Save Map':
             print ('save map')
@@ -80,8 +87,13 @@ def runUI():
 
         if figAgg != False:
             figAgg.get_tk_widget().forget()
-        fig, ax = outD.showTableState(grid)
+
+        fig, ax = outD.showTableState(grid, fig)
         figAgg = draw_figure(window['figCanvas'].TKCanvas, fig)
+
+        #clear figure after drawing
+
+
         # exit run loop event
         if event == "Close" or event == Sg.WIN_CLOSED:
             break
